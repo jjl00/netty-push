@@ -1,0 +1,3 @@
+protoc -I=C:\Users\HASEE\IdeaProjects\netty-push\protocol --java_out=C:\Users\HASEE\IdeaProjects\netty-push\push-common\src\main\java C:\Users\HASEE\IdeaProjects\netty-push\protocol\MessageProtocol.proto
+
+ 

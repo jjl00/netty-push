@@ -1,0 +1,8 @@
+server:
+  port: 6001
+
+route:
+  address: 127.0.0.1:7003
+
+clientId: 1
+token: token

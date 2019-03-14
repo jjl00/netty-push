@@ -1,0 +1,10 @@
+
+cache:
+  local: true
+  remote: true
+
+
+spring:
+  redis:
+    host: toppest.ink
+    port: 6379

@@ -1,0 +1,16 @@
+#消息队列自定义属性
+mq:
+  push:
+    group: push_group
+    broadcast: push_broadcast
+  producer: true
+  consumer: true
+
+spring:
+  activemq:
+    broker-url: tcp://localhost:61616
+    in-memory: true
+    pool:
+      enabled: false
+    password: admin
+    user: admin

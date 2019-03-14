@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package protocol;
+
+option java_package = "protocol";
+option java_outer_classname = "MessageProtocol";
+
+message Protocol{
+    int64 messageId=1;
+    enum headType{
+        LOGIN=0;
+        LOGOUT=1;
+        AUTHENTICATED=2;
+        HTTP_REQUEST=3;
+        HTTP_RESPONSE=4;
+        PUSH=5;
+        PING=6;
+        PONG=7;
+    }
+    headType type=2;
+    bytes body=3;
+}
