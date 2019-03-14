@@ -26,8 +26,6 @@ public class DefaultRouteService implements RouteService<String,String> {
 
     private volatile List<String> serverList;
 
-    private CopyOnWriteArraySet set=new CopyOnWriteArraySet();
-
     private final AtomicInteger atomicInteger=new AtomicInteger(0);
 
     @PostConstruct
@@ -37,10 +35,17 @@ public class DefaultRouteService implements RouteService<String,String> {
     }
     private void initServerList(){
         serverList=serverAdmin.getServerList();
+ //       List<String> oldList=serverList;    在服务器宕机后需要更新缓存,实现比较繁琐，先放一放
         serverAdmin.subscribeChildChanges((s,list)->{
-            log.info("服务列表发生改变");
+            log.info("服务列表发生改变,从{}变化到{}",serverList,list);
             serverList=list;
         });
+//        oldList.stream().filter((a)->
+//           !serverList.contains(a)
+//        ).forEach((a)->{
+//
+//        });
+
     }
 
 

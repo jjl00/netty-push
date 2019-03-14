@@ -7,6 +7,7 @@ import ink.toppest.pushclient.client.Client;
 import ink.toppest.pushclient.util.SpringBeanFactory;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.EventLoop;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @Slf4j
+@ChannelHandler.Sharable
 public class ClientHandler extends SimpleChannelInboundHandler<MessageProtocol.Protocol> {
 
 
@@ -37,21 +39,23 @@ public class ClientHandler extends SimpleChannelInboundHandler<MessageProtocol.P
     }
 
    
-    ScheduledExecutorService executorService=SpringBeanFactory.getBean("singleThreadScheduledExecutor",ScheduledExecutorService.class);
+//    ScheduledExecutorService executorService=SpringBeanFactory.getBean("singleThreadScheduledExecutor",ScheduledExecutorService.class);
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception{
         log.info("用户{}断线",id);
         super.channelInactive(ctx);
 //        使用过程中断线重连
-        executorService.schedule(()->{
+        final EventLoop eventLoop = ctx.channel().eventLoop();
+        eventLoop.schedule(()->{
             try {
                 log.info("用户{}准备重连",id);
                 client.start(id);
-            } catch (InterruptedException e) {
+            }catch (InterruptedException e) {
                 log.info("重连异常: ",e.getMessage());
             }
         }, 1, TimeUnit.SECONDS);
+
 
 //        log.info("用户{}准备重连",id);
 //        new Thread(()->{

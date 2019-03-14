@@ -38,7 +38,8 @@ public class Server {
         serverBootstrap.group(workerGruop,bossGroup)
                 .channel(NioServerSocketChannel.class)
                 .localAddress(port)
-                .childOption(ChannelOption.SO_BACKLOG, 1024)
+                .option(ChannelOption.SO_BACKLOG, 1024)
+                .option(ChannelOption.TCP_NODELAY,true)
                 .childOption(ChannelOption.SO_REUSEADDR, true) //快速复用端口
                 .childHandler(initializer);
         ChannelFuture channelFuture=serverBootstrap.bind().sync();

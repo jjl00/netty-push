@@ -9,17 +9,21 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import protocol.MessageProtocol;
 
-
+@NoArgsConstructor
+@Data
 public class ClientInitializer extends ChannelInitializer<SocketChannel> {
 
     public ClientInitializer(ClientHandler handler){
         this.handler=handler;
     }
     private  ClientHandler handler;
+
+
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         socketChannel.pipeline()

@@ -41,16 +41,17 @@ public class PushClientApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        for(int i=0;i<100;i++){
+        for(int i=0;i<1000;i++){
             final long id=i;
-            Thread thread=new Thread(()->{
-                try {
-                    client.start(id);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-            thread.start();
+//            Thread thread=new Thread(()->{
+//                try {
+//                    client.start(id);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//            thread.start();
+            client.start(id);
         }
 
     }
